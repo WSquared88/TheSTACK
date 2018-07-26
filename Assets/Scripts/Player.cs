@@ -33,7 +33,7 @@ public class Player : MonoBehaviour, IDamageComponent
 	{
 		if (maxHealth <= 0)
 		{
-			Debug.LogError(gameObject.name + " has no health, killing");
+			Debug.LogError("Player: I have no health, killing!");
 			Die();
 		}
 
@@ -48,7 +48,7 @@ public class Player : MonoBehaviour, IDamageComponent
 
 	public void TakeDamage(int amountOfDamage)
 	{
-		Debug.Log("The player is taking " + amountOfDamage + " damage!");
+		Debug.Log("Player: I'm taking " + amountOfDamage + " damage!");
 		currentHealth -= amountOfDamage;
 		CheckIfDead();
 	}
@@ -63,6 +63,6 @@ public class Player : MonoBehaviour, IDamageComponent
 
 	public void Die()
 	{
-		Debug.Log("The player has died!");
+		Debug.Log("Player: Dying!");
 	}
 }

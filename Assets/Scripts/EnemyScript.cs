@@ -40,7 +40,7 @@ public class EnemyScript : MonoBehaviour, IDamageComponent
     {
         if(maxHealth <= 0)
         {
-            Debug.LogError(gameObject.name + " has no health, killing");
+            Debug.LogError("EnemyScript: " + gameObject.name + " has no health, killing");
             Die();
         }
 
@@ -49,19 +49,19 @@ public class EnemyScript : MonoBehaviour, IDamageComponent
         if(moveSpeed < 0)
         {
             moveSpeed = 10;
-            Debug.LogWarning(name + " doesn't have a move speed, setting to " + moveSpeed);
+            Debug.LogWarning("EnemyScript: " + name + " doesn't have a move speed, setting to " + moveSpeed);
         }
 
         player = GameObject.FindGameObjectWithTag("Player").transform;
         if(!player)
         {
-            Debug.LogError("Unable to find the player");
+            Debug.LogError("EnemyScript: Unable to find the player");
         }
 
 		if(attackDamage <= 0)
 		{
 			attackDamage = 1;
-			Debug.LogWarning("The damage for the " + gameObject.name + " was not set. Setting to " + attackDamage);
+			Debug.LogWarning("EnemyScript: The damage for the " + gameObject.name + " was not set. Setting to " + attackDamage);
 		}
 	}
 	
@@ -73,7 +73,7 @@ public class EnemyScript : MonoBehaviour, IDamageComponent
 
     public void TakeDamage(int amountOfDamage)
     {
-        Debug.Log(gameObject.name + " is taking " + amountOfDamage + " damage");
+        Debug.Log("EnemyScript: " + gameObject.name + " is taking " + amountOfDamage + " damage");
         CurrentHealth -= amountOfDamage;
     }
 
@@ -92,11 +92,11 @@ public class EnemyScript : MonoBehaviour, IDamageComponent
 
 	void OnCollisionEnter(Collision collision)
 	{
-		Debug.Log("The enemy is colliding with something");
+		Debug.Log("EnemyScript: I'm colliding with something");
 		IDamageComponent player = collision.gameObject.GetComponent<IDamageComponent>();
 		if(player != null)
 		{
-			Debug.Log("It was the player, attacking!");
+			Debug.Log("EnemyScript: It was the player, attacking!");
 			player.TakeDamage(attackDamage);
 		}
 	}

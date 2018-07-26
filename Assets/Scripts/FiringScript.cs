@@ -1,32 +1,34 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(BulletManager))]
+
 public class FiringScript : MonoBehaviour
 {
-    public Transform FiringLocation;
+    public Camera playerCamera;
     public Transform FxLocation;
-    public float force;
+    [HideInInspector]
     public BulletManager magazine;
 
 	// Use this for initialization
 	void Start ()
     {
-        if (!FiringLocation)
+        if (!playerCamera)
         {
-            FiringLocation = GetComponent<Camera>().transform;
-            Debug.LogWarning("No firing location provided for bullet to be fired from. Using camera's location.");
+            playerCamera = GetComponent<Camera>();
+            Debug.LogWarning("FiringScript: The camera wasn't provided for the bullet to be fired from. Grabbing it.");
         }
 
         if(!FxLocation)
         {
             FxLocation = GetComponent<Camera>().transform;
-            Debug.LogWarning("There isn't a place to spawn the FX! Spawning them at the camera");
+            Debug.LogWarning("FiringScript: There isn't a place to spawn the FX! Spawning them at the camera");
         }
 
         magazine = GetComponent<BulletManager>();
         if(!magazine)
         {
-            Debug.LogError("Couldn't make the magazine for the gun.");
+            Debug.LogError("FiringScript: Couldn't make the magazine for the gun.");
         }
 	}
 	
@@ -35,8 +37,8 @@ public class FiringScript : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire1"))
         {
-            Debug.Log("Firing in FiringScript");
-            magazine.FireNextBullet(FiringLocation.position, FiringLocation.forward, FxLocation.position);
+            Debug.Log("FiringScript: Firing!");
+            magazine.FireNextBullet(playerCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 0)), playerCamera.transform.forward, FxLocation.position);
         }
 	}
 }
